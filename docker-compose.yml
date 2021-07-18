@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+
+    vaccine-exercise-db:
+        image: postgres:latest
+        restart: unless-stopped
+        env_file: ./.env
+        volumes:
+            - database-data:/var/lib/postgresql/data
+        ports:
+            - 1111:1111
+        container_name: vaccine-exercise-db
+
+    vaccine-exercise-backend:
+        build:
+            context: backend
+            args:
+                NODE_ENV: "development"
+        ports:
+            - 2222:2222
+        env_file: ./.env
+        depends_on:
+            - vaccine-exercise-db
+        volumes:
+            - ./backend:/usr/src/app
+        command: npm run dev
+        container_name: vaccine-exercise-backend
+
+    vaccine-exercise-frontend:
+        build:
+            context: frontend
+            args:
+                NODE_ENV: "development"
+        ports:
+            - 3333:3333
+        env_file: ./.env
+        depends_on:
+            - vaccine-exercise-backend
+        volumes:
+            - ./frontend:/usr/src/app
+        command: npm start
+        container_name: vaccine-exercise-frontend
+
+volumes:
+    database-data:
