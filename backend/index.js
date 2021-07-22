@@ -3,4 +3,5 @@ const http = require('http')
 
 const server = http.createServer(app)
 
-server.listen(3333, () => console.log('Vaccine exercise backend started'))
+const config = require('./utils/config')
+server.listen(config.PORT, () => console.log('Vaccine exercise backend started'))
