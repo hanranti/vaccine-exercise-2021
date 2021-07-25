@@ -15,4 +15,4 @@ RUN if [ "${NODE_ENV}" != "development" ]; then \
     npm run build && npm install -g serve; \
     fi
 
-CMD serve -s build -l 3333
+CMD serve -s build -l "${PORT}"
