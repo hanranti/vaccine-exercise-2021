@@ -33,7 +33,7 @@ services:
             args:
                 NODE_ENV: "development"
         ports:
-            - 8080:8080
+            - 80:80
         env_file: ./.env
         depends_on:
             - vaccine-exercise-backend
