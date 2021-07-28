@@ -1,3 +1,5 @@
 build:
   docker:
     frontend: frontend/Dockerfile
+run:
+  frontend: npm start
