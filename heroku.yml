@@ -2,4 +2,4 @@ build:
   docker:
     frontend: frontend/Dockerfile
 run:
-  frontend: docker run -d -p 80:80 vaccine-exercise-frontend
+  frontend: npm start
