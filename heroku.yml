@@ -2,4 +2,4 @@ build:
   docker:
     frontend: frontend/Dockerfile
 run:
-  frontend: serve -s build -l 8080
+  frontend: npm start
