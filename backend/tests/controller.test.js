@@ -2,6 +2,6 @@ const controller = require('../controllers/controller')
 
 describe('controller', () => {
   test('findAllVaccinations returns correct vaccination amount', async () => {
-    expect(await controller.findAllVaccinations()).toEqual(5)
+    expect(JSON.parse(JSON.stringify(await controller.findAllVaccinations())).length).toEqual(7000)
   })
 })
