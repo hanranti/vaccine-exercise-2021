@@ -1,14 +1,14 @@
 module.exports = (sequelize, DataTypes) => sequelize.define('antiqua', {
-    id: {
-        type: DataTypes.STRING,
-        primaryKey: true
-    },
-    orderNumber: DataTypes.BIGINT,
-    responsiblePerson: DataTypes.STRING,
-    healthCareDistrict: DataTypes.STRING,
-    vaccine: DataTypes.STRING,
-    injections: DataTypes.INTEGER,
-    arrived: DataTypes.DATE
+  id: {
+    type: DataTypes.STRING,
+    primaryKey: true
+  },
+  orderNumber: DataTypes.BIGINT,
+  responsiblePerson: DataTypes.STRING,
+  healthCareDistrict: DataTypes.STRING,
+  vaccine: DataTypes.STRING,
+  injections: DataTypes.INTEGER,
+  arrived: DataTypes.DATE
 }, {
-    freezeTableName: true
+  freezeTableName: true
 })

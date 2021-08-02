@@ -1,3 +1,4 @@
+import React from 'react'
 import 'primereact/resources/themes/saga-orange/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
@@ -10,7 +11,7 @@ function App() {
       <Topbar />
       <Content />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
