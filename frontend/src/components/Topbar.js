@@ -11,17 +11,17 @@ const Topbar = () => {
     }
 
     const left = (
-        <div>
-            <h1>Hello </h1>
+        <React.Fragment>
+            <h1>Vaccine Exercise 2021</h1>
             <Button label='Filters' onClick={() => setShowFilters(true)} />
             <Sidebar position='left' className="ui-sidebar-sm" visible={showFilters} onHide={() => setShowFilters(false)} />
-        </div>
+        </React.Fragment>
     )
 
     const right = (
-        <div position='right'>
-            <h1>world!</h1>
-        </div>
+        <React.Fragment>
+            <i>Created by hanranti</i>
+        </React.Fragment>
     )
 
     return (
