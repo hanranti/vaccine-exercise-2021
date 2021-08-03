@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Vaccine-exercise",
   "scripts": {
-    "start": "sh ./scripts/initializeDbAndStart.sh"
+    "start": "sh ./scripts/initializeDbAndStart.sh",
+    "test:e2e": "sh ./scripts/buildAndPopulate.sh && docker-compose up -d && cypress run"
   },
   "repository": {
     "type": "git",
@@ -16,6 +17,8 @@
   },
   "homepage": "https://github.com/hanranti/vaccine-exercise-2021#readme",
   "devDependencies": {
-    "eslint": "^7.31.0"
+    "cypress": "^8.1.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-cypress": "^2.11.3"
   }
 }
