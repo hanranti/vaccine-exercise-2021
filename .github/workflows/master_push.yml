@@ -23,6 +23,7 @@ jobs:
 
     - name: Initialize db, start docker-compose and test frontend, backend and e2e
       run: |
+        export $(${{ secrets.POSTGRES_PASSWORD }} | sed 's/#.*//g' | xargs)
         sh ./scripts/buildAndPopulate.sh
         docker-compose up -d
         cd backend
