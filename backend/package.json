@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "cd .. && export $(cat .env | sed 's/#.*//g' | xargs) && ./scripts/buildAndPopulate.sh && cd backend && DB_HOST=localhost NODE_ENV=test jest --verbose --runInBand --forceExit && cd .. && docker-compose down",
+    "test": "cd .. && export $(cat .env | sed 's/#.*//g' | xargs) && npm start && cd backend && DB_HOST=localhost NODE_ENV=test jest --verbose --runInBand --forceExit && cd .. && docker-compose down",
+    "test:workflow": "DB_HOST=localhost NODE_ENV=test jest --verbose --runInBand --forceExit ",
     "lint": "eslint .",
     "lint-fix": "eslint --fix ."
   },

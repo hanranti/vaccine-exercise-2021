@@ -4,7 +4,8 @@
   "description": "Vaccine-exercise",
   "scripts": {
     "start": "sh ./scripts/initializeDbAndStart.sh",
-    "test:e2e": "sh ./scripts/buildAndPopulate.sh && docker-compose up -d && cypress run"
+    "test:e2e": "npm start && cypress run",
+    "test:e2e-workflow": "cypress run"
   },
   "repository": {
     "type": "git",
