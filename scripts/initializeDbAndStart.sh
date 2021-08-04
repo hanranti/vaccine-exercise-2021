@@ -8,4 +8,4 @@ docker-compose exec -T -u postgres vaccine-exercise-db psql -c "DROP DATABASE \"
 docker-compose exec -T -u postgres vaccine-exercise-db psql -c "CREATE DATABASE \"vaccine_db\""
 docker-compose up -d populate
 sleep 60
-docker-compose up --scale populate=0
+docker-compose up -d --scale populate=0
