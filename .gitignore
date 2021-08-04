@@ -18,6 +18,8 @@ scripts/populate/.env
 
 node_modules
 
+cypress/videos
+cypress/screenshots
 
 # Backend
 
