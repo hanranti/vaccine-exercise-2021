@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
   config.db_user,
   config.db_password,
   {
-    host: config.db_host,
+    host: process.env.PSQL_HOST || config.db_host,
     dialect: config.dialect,
     operatorsAliases: 0,
     pool: {
