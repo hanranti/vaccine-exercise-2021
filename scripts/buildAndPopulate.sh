@@ -8,4 +8,4 @@ echo 'initialize db'
 docker-compose exec -T -u postgres vaccine-exercise-db psql -c "DROP DATABASE \"vaccine_db\""
 docker-compose exec -T -u postgres vaccine-exercise-db psql -c "CREATE DATABASE \"vaccine_db\""
 ./scripts/convertDataToJson.sh
-DB_HOST=localhost node ./scripts/populate/populate.js
+node ./scripts/populate/populate.js
