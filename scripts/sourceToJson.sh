@@ -2,6 +2,6 @@ OLD_FILE_PATH=$1
 NEW_FILE_NAME=${OLD_FILE_PATH%.source}
 NEW_FILE_NAME=${NEW_FILE_NAME##*/}.json
 
-NEW_FILE_LOCATION=./data/
+NEW_FILE_LOCATION=./scripts/populate/data/
 NEW_FILE_PATH="$NEW_FILE_LOCATION$NEW_FILE_NAME"
 sed '1s/^/[/;$!s/$/,/;$s/$/]/' $OLD_FILE_PATH > $NEW_FILE_PATH

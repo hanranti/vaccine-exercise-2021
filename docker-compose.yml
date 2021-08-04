@@ -2,6 +2,19 @@ version: '3.7'
 
 services:
 
+    populate:
+        build:
+            context: scripts/populate
+        ports:
+            - 1111:1111
+        env_file: ./.env
+        depends_on:
+            - vaccine-exercise-db
+        volumes:
+            - ./scripts/populate:/usr/src/app
+        command: npm start
+        container_name: populate
+
     vaccine-exercise-db:
         image: postgres:latest
         restart: unless-stopped

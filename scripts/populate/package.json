@@ -4,6 +4,7 @@
   "description": "Populates database for vaccine Exercise",
   "main": "populate.js",
   "scripts": {
+    "start": "node populate.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
