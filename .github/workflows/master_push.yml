@@ -21,21 +21,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Install, initialize db and test
+    - name: Initialize db, start docker-compose and test frontend, backend and e2e
       run: |
         echo ${{ secrets.ENV }} > .env
-        npm install
-        cd frontend
-        npm install
-        cd ../backend
-        npm install
-        cd ..
-        docker-compose up -d vaccine-exercise-db
-        sleep 30
-        docker exec -u postgres vaccine-exercise-db psql -c "DROP DATABASE \"vaccine_db\""
-        docker exec -u postgres vaccine-exercise-db psql -c "CREATE DATABASE \"vaccine_db\""
-        sh ./scripts/convertDataToJson.sh
-        DB_HOST=localhost node ./scripts/populate/populate.js
+        sh ./scripts/buildAndPopulate.sh
         docker-compose up -d
         cd backend
         npm test
