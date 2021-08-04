@@ -1,7 +1,7 @@
 ./scripts/installAndBuild.sh
 echo 'run db container'
 docker-compose down
-docker-compose up -d vaccine-exercise-db
+docker-compose run -d vaccine-exercise-db
 sleep 10
 
 echo 'initialize db'
