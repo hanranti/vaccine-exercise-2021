@@ -2,7 +2,7 @@ name: MASTER PUSH
 
 on:
   push:
-    branches: [ workflow ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Initialize db, start docker-compose and test frontend, backend and e2e
+    - name: Test frontend
       run: |
         echo ${{ secrets.ENV }} > .env
         echo ${{ secrets.ENV }} > ./scripts/populate/.env
