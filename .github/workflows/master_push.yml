@@ -25,11 +25,6 @@ jobs:
       run: |
         echo ${{ secrets.ENV }} > .env
         echo ${{ secrets.ENV }} > ./scripts/populate/.env
-        sh ./scripts/initializeDbAndStart.sh
-        sleep 20
-        cd backend
-        npm run test:workflow
-        cd ../frontend
+        cd frontend
+        npm install
         npm test
-        cd ..
-        npm run test:e2e-workflow
