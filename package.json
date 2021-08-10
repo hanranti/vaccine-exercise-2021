@@ -5,7 +5,9 @@
   "scripts": {
     "start": "sh ./scripts/initializeDbAndStart.sh",
     "test:e2e": "npm start && cypress run",
-    "test:e2e-workflow": "cypress run"
+    "test:e2e-workflow": "cypress run",
+    "lint-fix": "eslint --fix .",
+    "lint-fix:e2e": "eslint --fix cypress/"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,8 @@
   "devDependencies": {
     "cypress": "^8.1.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-cypress": "^2.11.3"
+    "eslint-plugin-cypress": "^2.11.3",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-react": "^7.24.0"
   }
 }
