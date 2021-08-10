@@ -5,104 +5,104 @@ const { Op } = require('sequelize')
 const testBegin = '2021-02-02T22:33:39.643569Z'
 const testEnd = '2021-03-13T11:08:11.643530Z'
 const testAttributesVaccination = {
-    attributes: ['vaccination-id', 'sourceBottle', 'gender', 'vaccinationDate', 'createdAt', 'updatedAt']
+  attributes: ['vaccination-id', 'sourceBottle', 'gender', 'vaccinationDate', 'createdAt', 'updatedAt']
 }
 const testAttributesOrders = {
-    attributes: ['id', 'orderNumber', 'responsiblePerson', 'healthCareDistrict', 'vaccine', 'injections', 'arrived']
+  attributes: ['id', 'orderNumber', 'responsiblePerson', 'healthCareDistrict', 'vaccine', 'injections', 'arrived']
 }
 
 describe('filters', () => {
-    test('default vaccinationDate is correct', () => {
-        expect(defaultFilters.vaccinationDate).toBe(false)
-    })
+  test('default vaccinationDate is correct', () => {
+    expect(defaultFilters.vaccinationDate).toBe(false)
+  })
 
-    test('default arrived is correct', () => {
-        expect(defaultFilters.arrived).toBe(false)
-    })
+  test('default arrived is correct', () => {
+    expect(defaultFilters.arrived).toBe(false)
+  })
 
-    test('default begin is correct', () => {
-        expect(defaultFilters.begin).toBe(false)
-    })
+  test('default begin is correct', () => {
+    expect(defaultFilters.begin).toBe(false)
+  })
 
-    test('default end is correct', () => {
-        expect(defaultFilters.end).toBe(false)
-    })
+  test('default end is correct', () => {
+    expect(defaultFilters.end).toBe(false)
+  })
 
-    test('vaccinationDate filters correctly', () => {
-        expect(addFilters({ begin: testBegin, vaccinationDate: true }, testAttributesVaccination)).toStrictEqual(
-            {
-                "attributes":
-                    ["vaccination-id", "sourceBottle", "gender", "vaccinationDate",
-                        "createdAt", "updatedAt"],
-                "where":
+  test('vaccinationDate filters correctly', () => {
+    expect(addFilters({ begin: testBegin, vaccinationDate: true }, testAttributesVaccination)).toStrictEqual(
+      {
+        'attributes':
+                    ['vaccination-id', 'sourceBottle', 'gender', 'vaccinationDate',
+                      'createdAt', 'updatedAt'],
+        'where':
                 {
-                    "vaccinationDate":
-                        { [Op.gte]: "2021-02-02T22:33:39.643569Z" }
+                  'vaccinationDate':
+                        { [Op.gte]: '2021-02-02T22:33:39.643569Z' }
                 }
-            }
-        )
-        expect(addFilters({ end: testEnd, vaccinationDate: true }, testAttributesVaccination)).toStrictEqual(
-            {
-                "attributes":
-                    ["vaccination-id", "sourceBottle", "gender", "vaccinationDate",
-                        "createdAt", "updatedAt"],
-                "where":
+      }
+    )
+    expect(addFilters({ end: testEnd, vaccinationDate: true }, testAttributesVaccination)).toStrictEqual(
+      {
+        'attributes':
+                    ['vaccination-id', 'sourceBottle', 'gender', 'vaccinationDate',
+                      'createdAt', 'updatedAt'],
+        'where':
                 {
-                    "vaccinationDate":
-                        { [Op.lte]: "2021-03-13T11:08:11.643530Z" }
+                  'vaccinationDate':
+                        { [Op.lte]: '2021-03-13T11:08:11.643530Z' }
                 }
-            }
-        )
-        expect(addFilters({ begin: testBegin, end: testEnd, vaccinationDate: true }, testAttributesVaccination)).toStrictEqual(
-            {
-                "attributes":
-                    ["vaccination-id", "sourceBottle", "gender", "vaccinationDate",
-                        "createdAt", "updatedAt"],
-                "where":
+      }
+    )
+    expect(addFilters({ begin: testBegin, end: testEnd, vaccinationDate: true }, testAttributesVaccination)).toStrictEqual(
+      {
+        'attributes':
+                    ['vaccination-id', 'sourceBottle', 'gender', 'vaccinationDate',
+                      'createdAt', 'updatedAt'],
+        'where':
                 {
-                    "vaccinationDate":
-                        { [Op.between]: ["2021-02-02T22:33:39.643569Z", "2021-03-13T11:08:11.643530Z"] }
+                  'vaccinationDate':
+                        { [Op.between]: ['2021-02-02T22:33:39.643569Z', '2021-03-13T11:08:11.643530Z'] }
                 }
-            }
-        )
-    })
+      }
+    )
+  })
 
-    test('arrived filters correctly', () => {
-        expect(addFilters({ begin: testBegin, arrived: true }, testAttributesOrders)).toStrictEqual(
-            {
-                "attributes":
+  test('arrived filters correctly', () => {
+    expect(addFilters({ begin: testBegin, arrived: true }, testAttributesOrders)).toStrictEqual(
+      {
+        'attributes':
                     ['id', 'orderNumber', 'responsiblePerson', 'healthCareDistrict',
-                        'vaccine', 'injections', 'arrived'],
-                "where":
+                      'vaccine', 'injections', 'arrived'],
+        'where':
                 {
-                    "arrived":
-                        { [Op.gte]: "2021-02-02T22:33:39.643569Z" }
+                  'arrived':
+                        { [Op.gte]: '2021-02-02T22:33:39.643569Z' }
                 }
-            }
-        )
-        expect(addFilters({ end: testEnd, arrived: true }, testAttributesOrders)).toStrictEqual(
-            {
-                "attributes":
+      }
+    )
+    expect(addFilters({ end: testEnd, arrived: true }, testAttributesOrders)).toStrictEqual(
+      {
+        'attributes':
                     ['id', 'orderNumber', 'responsiblePerson', 'healthCareDistrict',
-                        'vaccine', 'injections', 'arrived'],
-                "where":
+                      'vaccine', 'injections', 'arrived'],
+        'where':
                 {
-                    "arrived":
-                        { [Op.lte]: "2021-03-13T11:08:11.643530Z" }
+                  'arrived':
+                        { [Op.lte]: '2021-03-13T11:08:11.643530Z' }
                 }
-            }
-        )
-        expect(addFilters({ begin: testBegin, end: testEnd, arrived: true }, testAttributesOrders)).toStrictEqual(
-            {
-                "attributes":
+      }
+    )
+    expect(addFilters({ begin: testBegin, end: testEnd, arrived: true }, testAttributesOrders)).toStrictEqual(
+      {
+        'attributes':
                     ['id', 'orderNumber', 'responsiblePerson', 'healthCareDistrict',
-                        'vaccine', 'injections', 'arrived'],
-                "where":
+                      'vaccine', 'injections', 'arrived'],
+        'where':
                 {
-                    "arrived":
-                        { [Op.between]: ["2021-02-02T22:33:39.643569Z", "2021-03-13T11:08:11.643530Z"] }
+                  'arrived':
+                        { [Op.between]: ['2021-02-02T22:33:39.643569Z', '2021-03-13T11:08:11.643530Z'] }
                 }
-            }
-        )
-    })
+      }
+    )
+  })
 })
