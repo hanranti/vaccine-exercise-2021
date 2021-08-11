@@ -3,15 +3,9 @@ const { Op } = require('sequelize')
 const addVaccinationFilters = (filters, query) => {
   let returnQuery = query
 
-  filters.beginVaccinations && !filters.endVaccinations
-    ? returnQuery = addVaccinationDateBegin(filters.beginVaccinations, returnQuery)
-    : console.log('No begin date')
-  filters.endVaccinations && !filters.beginVaccinations
-    ? returnQuery = addVaccinationDateEnd(filters.endVaccinations, returnQuery)
-    : console.log('No end date')
-  filters.beginVaccinations && filters.endVaccinations
-    ? returnQuery = addVaccinationDateBetween(filters.beginVaccinations, filters.endVaccinations, returnQuery)
-    : console.log('No both begin and end date')
+  if (filters.beginVaccinations && !filters.endVaccinations) returnQuery = addVaccinationDateBegin(filters.beginVaccinations, returnQuery)
+  if (filters.endVaccinations && !filters.beginVaccinations) returnQuery = addVaccinationDateEnd(filters.endVaccinations, returnQuery)
+  if (filters.beginVaccinations && filters.endVaccinations) returnQuery = addVaccinationDateBetween(filters.beginVaccinations, filters.endVaccinations, returnQuery)
 
   return returnQuery
 }
@@ -19,15 +13,9 @@ const addVaccinationFilters = (filters, query) => {
 const addOrderFilters = (filters, vaccinations, query) => {
   let returnQuery = query
 
-  filters.beginOrders && !filters.endOrders
-    ? returnQuery = addArrivedBegin(filters.beginOrders, returnQuery)
-    : console.log('No begin date')
-  filters.endOrders && !filters.beginOrders
-    ? returnQuery = addArrivedEnd(filters.endOrders, returnQuery)
-    : console.log('No end date')
-  filters.beginOrders && filters.endOrders
-    ? returnQuery = addArrivedBetween(filters.beginOrders, filters.endOrders, returnQuery)
-    : console.log('No both begin and end date')
+  if (filters.beginOrders && !filters.endOrders) returnQuery = addArrivedBegin(filters.beginOrders, returnQuery)
+  if (filters.endOrders && !filters.beginOrders) returnQuery = addArrivedEnd(filters.endOrders, returnQuery)
+  if (filters.beginOrders && filters.endOrders) returnQuery = addArrivedBetween(filters.beginOrders, filters.endOrders, returnQuery)
 
   returnQuery = filterOrdersByVaccinations(vaccinations, returnQuery)
 

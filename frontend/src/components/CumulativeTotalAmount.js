@@ -1,17 +1,20 @@
 import React from 'react'
 import { Chart } from 'primereact/chart'
 
-const TotalAmount = ({ totalOrders }) => {
+const CumulativeTotalAmount = ({ totalOrders }) => {
+
+  const convertArrayCumulative = (s => v => s += v)(0)
+
   const data = {
     labels: totalOrders !== undefined && totalOrders.labels !== undefined ? totalOrders.labels : [],
     datasets: [{
-      label: 'Total orders',
-      data: totalOrders !== undefined && totalOrders.orders !== undefined ? [...totalOrders.orders] : [],
+      label: 'Cumulative orders',
+      data: totalOrders !== undefined && totalOrders.orders !== undefined ? [...totalOrders.orders].map(convertArrayCumulative) : [],
       borderColor: '#80ff80'
     },
     {
-      label: 'Total injections',
-      data: totalOrders !== undefined && totalOrders.injections !== undefined ? [...totalOrders.injections] : [],
+      label: 'Cumulative injections',
+      data: totalOrders !== undefined && totalOrders.injections !== undefined ? [...totalOrders.injections].map(convertArrayCumulative) : [],
       borderColor: '#80ffff'
     }]
   }
@@ -50,4 +53,4 @@ const TotalAmount = ({ totalOrders }) => {
   )
 }
 
-export default TotalAmount
+export default CumulativeTotalAmount

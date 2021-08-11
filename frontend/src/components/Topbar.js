@@ -37,13 +37,52 @@ const Topbar = ({ topBarData }) => {
           ])
         }} />
         <h6>Zerpfy</h6>
-        <InputSwitch checked={topBarData.vaccines[2]} onChange={() => {
+        <InputSwitch checked={topBarData.vaccines[2]} onChange={() =>
           topBarData.setVaccines([
             topBarData.vaccines[0],
             topBarData.vaccines[1],
             !topBarData.vaccines[2]
           ])
-        }} />
+        } />
+        <h4>Time based filtering</h4>
+        <h5>Vaccination date:</h5>
+        <p>begin</p>
+        <input
+          className="p-inputtext p-component"
+          type="date"
+          value={topBarData.beginVaccinations}
+          onChange={e => topBarData.setBeginVaccinations(e.target.value)}></input>
+        <InputSwitch
+          checked={topBarData.beginVaccinations}
+          onChange={() => topBarData.setBeginVaccinations(false)} />
+        <p>end</p>
+        <input
+          className="p-inputtext p-component"
+          type="date"
+          value={topBarData.endVaccinations}
+          onChange={e => topBarData.setEndVaccinations(e.target.value)}></input>
+        <InputSwitch
+          checked={topBarData.endVaccinations}
+          onChange={() => topBarData.setEndVaccinations(false)} />
+        <h5>Orders arrived date:</h5>
+        <p>begin</p>
+        <input
+          className="p-inputtext p-component"
+          type="date"
+          value={topBarData.beginOrders}
+          onChange={e => topBarData.setBeginOrders(e.target.value)}></input>
+        <InputSwitch
+          checked={topBarData.beginOrders}
+          onChange={() => topBarData.setBeginOrders(false)} />
+        <p>end</p>
+        <input
+          className="p-inputtext p-component"
+          type="date"
+          value={topBarData.endOrders}
+          onChange={e => topBarData.setEndOrders(e.target.value)}></input>
+        <InputSwitch
+          checked={topBarData.endOrders}
+          onChange={() => topBarData.setEndOrders(false)} />
       </Sidebar>
     </React.Fragment>
   )
