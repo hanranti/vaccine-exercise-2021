@@ -10,10 +10,18 @@ import Content from './components/Content'
 function App() {
 
   const [totalOrders, setTotalOrders] = useState({})
+  const [vaccines, setVaccines] = useState([true, true, true])
 
   useEffect(() => {
-    getAll('totalamount?antiqua=true').then(response => setTotalOrders(response))
-  }, [])
+    getAll(
+      `totalamount?${vaccines[0] ? 'antiqua=true&&' : ''}${vaccines[1] ? 'solarbuddhica=true&&' : ''}${vaccines[2] ? 'zerpfy=true' : ''}`
+    ).then(response => setTotalOrders(response))
+  }, [vaccines])
+
+  const topBarData = {
+    vaccines: vaccines,
+    setVaccines: setVaccines
+  }
 
   const contentData = {
     totalOrders: totalOrders
@@ -22,7 +30,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter basename={process.env.REACT_APP_ROUTER_BASENAME}>
-        <Topbar />
+        <Topbar topBarData={topBarData} />
         <Content contentData={contentData} />
       </BrowserRouter>
     </div>
