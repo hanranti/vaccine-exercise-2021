@@ -1,11 +1,12 @@
 /* eslint-env node */
 module.exports = {
     "env": {
+        "node": true,
         "browser": true,
         "es6": true,
-        "jest/globals": true 
+        "jest/globals": true
     },
-    "extends": [ 
+    "extends": [
         "eslint:recommended",
         "plugin:react/recommended"
     ],
@@ -22,7 +23,7 @@ module.exports = {
     "rules": {
         "indent": [
             "error",
-            2  
+            2
         ],
         "linebreak-style": [
             "error",
@@ -48,8 +49,8 @@ module.exports = {
         "react/prop-types": 0
     },
     "settings": {
-      "react": {
-        "version": "detect"
-      }
+        "react": {
+            "version": "detect"
+        }
     }
-  }
+}
