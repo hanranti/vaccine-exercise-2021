@@ -1,76 +1,92 @@
 const { Op } = require('sequelize')
 
-const addFilters = (filters, query) => {
+const addVaccinationFilters = (filters, query) => {
   let returnQuery = query
-  if (filters.vaccinationDate) {
-    filters.begin && !filters.end
-      ? query = addVaccinationDateBegin(filters.begin, query)
-      : console.log('No begin date')
-    filters.end && !filters.begin
-      ? query = addVaccinationDateEnd(filters.end, query)
-      : console.log('No end date')
-    filters.begin && filters.end
-      ? query = addVaccinationDateBetween(filters.begin, filters.end, query)
-      : console.log('No both begin and end date')
-  }
-  if (filters.arrived) {
-    filters.begin && !filters.end
-      ? query = addArrivedBegin(filters.begin, query)
-      : console.log('No begin date')
-    filters.end && !filters.begin
-      ? query = addArrivedEnd(filters.end, query)
-      : console.log('No end date')
-    filters.begin && filters.end
-      ? query = addArrivedBetween(filters.begin, filters.end, query)
-      : console.log('No both begin and end date')
-  }
+
+  filters.beginVaccinations && !filters.endVaccinations
+    ? returnQuery = addVaccinationDateBegin(filters.beginVaccinations, returnQuery)
+    : console.log('No begin date')
+  filters.endVaccinations && !filters.beginVaccinations
+    ? returnQuery = addVaccinationDateEnd(filters.endVaccinations, returnQuery)
+    : console.log('No end date')
+  filters.beginVaccinations && filters.endVaccinations
+    ? returnQuery = addVaccinationDateBetween(filters.beginVaccinations, filters.endVaccinations, returnQuery)
+    : console.log('No both begin and end date')
+
   return returnQuery
 }
 
-const addVaccinationDateBetween = (begin, end, query) => {
+const addOrderFilters = (filters, vaccinations, query) => {
   let returnQuery = query
-  returnQuery.where = { ...returnQuery.where, vaccinationDate: { [Op.between]: [begin, end] } }
+
+  filters.beginOrders && !filters.endOrders
+    ? returnQuery = addArrivedBegin(filters.beginOrders, returnQuery)
+    : console.log('No begin date')
+  filters.endOrders && !filters.beginOrders
+    ? returnQuery = addArrivedEnd(filters.endOrders, returnQuery)
+    : console.log('No end date')
+  filters.beginOrders && filters.endOrders
+    ? returnQuery = addArrivedBetween(filters.beginOrders, filters.endOrders, returnQuery)
+    : console.log('No both begin and end date')
+
+  returnQuery = filterOrdersByVaccinations(vaccinations, returnQuery)
+
   return returnQuery
 }
 
-const addVaccinationDateBegin = (begin, query) => {
+const addVaccinationDateBetween = (beginVaccinations, endVaccinations, query) => {
   let returnQuery = query
-  returnQuery.where = { ...returnQuery.where, vaccinationDate: { [Op.gte]: begin } }
+  returnQuery.where = { ...returnQuery.where, vaccinationDate: { [Op.between]: [beginVaccinations, endVaccinations] } }
   return returnQuery
 }
 
-const addVaccinationDateEnd = (end, query) => {
+const addVaccinationDateBegin = (beginVaccinations, query) => {
   let returnQuery = query
-  returnQuery.where = { ...returnQuery.where, vaccinationDate: { [Op.lte]: end } }
+  returnQuery.where = { ...returnQuery.where, vaccinationDate: { [Op.gte]: beginVaccinations } }
   return returnQuery
 }
 
-const addArrivedBetween = (begin, end, query) => {
+const addVaccinationDateEnd = (endVaccinations, query) => {
   let returnQuery = query
-  returnQuery.where = { ...returnQuery.where, arrived: { [Op.between]: [begin, end] } }
+  returnQuery.where = { ...returnQuery.where, vaccinationDate: { [Op.lte]: endVaccinations } }
   return returnQuery
 }
 
-const addArrivedBegin = (begin, query) => {
+const addArrivedBetween = (beginOrders, endOrders, query) => {
   let returnQuery = query
-  returnQuery.where = { ...returnQuery.where, arrived: { [Op.gte]: begin } }
+  returnQuery.where = { ...returnQuery.where, arrived: { [Op.between]: [beginOrders, endOrders] } }
   return returnQuery
 }
 
-const addArrivedEnd = (end, query) => {
+const addArrivedBegin = (beginOrders, query) => {
   let returnQuery = query
-  returnQuery.where = { ...returnQuery.where, arrived: { [Op.lte]: end } }
+  returnQuery.where = { ...returnQuery.where, arrived: { [Op.gte]: beginOrders } }
+  return returnQuery
+}
+
+const addArrivedEnd = (endOrders, query) => {
+  let returnQuery = query
+  returnQuery.where = { ...returnQuery.where, arrived: { [Op.lte]: endOrders } }
+  return returnQuery
+}
+
+const filterOrdersByVaccinations = (vaccinations, query) => {
+  let returnQuery = query
+  returnQuery.where = { ...returnQuery.where, id: vaccinations.map(vaccination => vaccination.sourceBottle) }
   return returnQuery
 }
 
 const defaultFilters = {
-  begin: false,
-  end: false,
-  vaccinationDate: false,
-  arrived: false
+  beginVaccinations: false,
+  endVaccinations: false,
+  beginOrders: false,
+  endOrders: false
 }
 
+const assignFilters = (filters) => Object.assign(Object.assign({}, defaultFilters), filters)
+
 module.exports = {
-  addFilters,
-  defaultFilters
+  addVaccinationFilters,
+  addOrderFilters,
+  assignFilters
 }

@@ -2,15 +2,25 @@ const router = require('express').Router()
 
 const controller = require('../controllers/controller')
 
-const { defaultFilters } = require('../utils/filters')
+const { assignFilters } = require('../utils/filters')
 
 router.get('/vaccinations', async (req, res) =>
   res.status(200).json(await controller.findAllVaccinations(
-    Object.assign(defaultFilters, req.body.filters))))
+    assignFilters({
+      beginVaccinations: req.query.beginVaccinations,
+      endVaccinations: req.query.endVaccinations,
+      beginOrders: req.query.beginOrders,
+      endOrders: req.query.endOrders
+    }))))
 
 router.get('/orders', async (req, res) => {
   res.status(200).json(await controller.findAllOrders(
-    Object.assign(defaultFilters, req.body.filters),
+    assignFilters({
+      beginVaccinations: req.query.beginVaccinations,
+      endVaccinations: req.query.endVaccinations,
+      beginOrders: req.query.beginOrders,
+      endOrders: req.query.endOrders
+    }),
     [
       (req.query.antiqua === 'true' ? 'Antiqua' : null),
       (req.query.solarbuddhica === 'true' ? 'SolarBuddhica' : null),
