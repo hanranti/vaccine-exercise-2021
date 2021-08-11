@@ -3,19 +3,33 @@ import { Chart } from 'primereact/chart'
 
 const CumulativeTotalAmount = ({ totalOrders }) => {
 
-  const convertArrayCumulative = (s => v => s += v)(0)
+  const convertArrayCumulative = a => (s => v => s += v)(a)
 
   const data = {
     labels: totalOrders !== undefined && totalOrders.labels !== undefined ? totalOrders.labels : [],
     datasets: [{
       label: 'Cumulative orders',
-      data: totalOrders !== undefined && totalOrders.orders !== undefined ? [...totalOrders.orders].map(convertArrayCumulative) : [],
+      data: totalOrders !== undefined && totalOrders.orderIds !== undefined ? [...totalOrders.orderIds.map(ids => ids.length)].map(convertArrayCumulative(0)) : [],
       borderColor: '#80ff80'
     },
     {
       label: 'Cumulative injections',
-      data: totalOrders !== undefined && totalOrders.injections !== undefined ? [...totalOrders.injections].map(convertArrayCumulative) : [],
+      data: totalOrders !== undefined && totalOrders.injections !== undefined ? [...totalOrders.injections].map(convertArrayCumulative(0)) : [],
       borderColor: '#80ffff'
+    },
+    {
+      label: 'Cumulative used vaccines',
+      data: totalOrders !== undefined && totalOrders.vaccinationDates !== undefined
+        ? [...totalOrders.vaccinationDates.map(vaccinationDates => vaccinationDates.length)].map(convertArrayCumulative(0)) : [],
+      borderColor: '#cc0099'
+    },
+    {
+      label: 'Expired vaccines of total',
+      data: totalOrders !== undefined && totalOrders.vaccinationDates !== undefined
+        ? [...totalOrders.orderIds.map(
+          ids => totalOrders.injections[totalOrders.orderIds.indexOf(ids)]
+            - totalOrders.vaccinationDates[totalOrders.orderIds.indexOf(ids)].length)].map(convertArrayCumulative(0)) : [],
+      borderColor: '#ff0000'
     }]
   }
 

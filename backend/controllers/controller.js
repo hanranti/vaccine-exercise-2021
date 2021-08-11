@@ -1,18 +1,24 @@
 const db = require('../models')
 const { addVaccinationFilters, addOrderFilters } = require('../utils/filters')
-const findAllVaccinations = async (filters) => {
+
+const findAllVaccinations = async (filters, vaccine) => {
+  const openedOrders = filters.byOrders
+    ? await findAllOrders(Object.assign(filters, { byVaccinations: false }), vaccine)
+    : []
   let query = {
     attributes: ['vaccination-id', 'sourceBottle', 'gender', 'vaccinationDate', 'createdAt', 'updatedAt'],
     order: [
       ['vaccinationDate', 'ASC']
     ]
   }
-  query = addVaccinationFilters(filters, query)
+  query = addVaccinationFilters(filters, openedOrders, query)
   return await db.vaccinations.findAll(query)
 }
 
 const findAllOrders = async (filters, vaccine) => {
-  const usedVaccines = await findAllVaccinations(filters)
+  const usedVaccines = filters.byVaccinations
+    ? await findAllVaccinations(Object.assign(filters, { byOrders: false }), vaccine)
+    : []
   let orders = []
   let query = {
     attributes: ['id', 'orderNumber', 'responsiblePerson', 'healthCareDistrict', 'vaccine', 'injections', 'arrived'],
@@ -29,21 +35,49 @@ const findAllOrders = async (filters, vaccine) => {
 }
 
 const getTotalOrdersData = async (filters, vaccine) => {
-  const orders = await findAllOrders(filters, vaccine)
-  const unMergedOrders = { labels: orders.map(order => order.arrived), injections: orders.map(order => order.injections), orders: orders.map(() => 1) }
+  const orders = await findAllOrders(Object.assign(filters, { byOrders: false }), vaccine)
+  const vaccinations = await findAllVaccinations(Object.assign(filters, { byOrders: true, byVaccinations: false }), vaccine)
 
-  const newTotalOrders = { labels: [unMergedOrders.labels[0]], injections: [unMergedOrders.injections[0]], orders: [1] }
+  const unMergedOrders = {
+    labels: orders.map(order => order.arrived),
+    injections: orders.map(order => order.injections),
+    orders: orders.map(() => 1),
+    orderIds: orders.map(order => order.id)
+  }
+
+  const newTotalOrders = {
+    labels: [unMergedOrders.labels[0]],
+    injections: [unMergedOrders.injections[0]],
+    orderIds: [[unMergedOrders.orderIds[0]]],
+    vaccinationDates: []
+  }
+
   let saveIndex = 0
+  let orderIndex = 0
   for (let i = 1; i < unMergedOrders.labels.length; i++) {
     if (newTotalOrders.labels[saveIndex] !== unMergedOrders.labels[i]) saveIndex++
-    newTotalOrders.orders[saveIndex] === undefined
-      ? newTotalOrders.orders[saveIndex] = 1
-      : newTotalOrders.orders[saveIndex]++
+    newTotalOrders.orderIds[saveIndex] === undefined
+      ? (() => {
+        orderIndex = 0
+        newTotalOrders.orderIds[saveIndex] = [unMergedOrders.orderIds[i]]
+      })()
+      : (() => {
+        orderIndex = orderIndex + 1
+        newTotalOrders.orderIds[saveIndex].push(unMergedOrders.orderIds[i])
+      })()
     newTotalOrders.labels[saveIndex] = unMergedOrders.labels[i]
     newTotalOrders.injections[saveIndex] === undefined
       ? newTotalOrders.injections[saveIndex] = unMergedOrders.injections[i]
       : newTotalOrders.injections[saveIndex] += unMergedOrders.injections[i]
   }
+  vaccinations.forEach(vaccination => {
+    newTotalOrders.orderIds.forEach(ids => {
+      if (ids.includes(vaccination.sourceBottle))
+        newTotalOrders.vaccinationDates[newTotalOrders.orderIds.indexOf(ids)] !== undefined
+          ? newTotalOrders.vaccinationDates[newTotalOrders.orderIds.indexOf(ids)].push(vaccination.vaccinationDate)
+          : newTotalOrders.vaccinationDates[newTotalOrders.orderIds.indexOf(ids)] = [vaccination.vaccinationDate]
+    })
+  })
 
   return newTotalOrders
 }

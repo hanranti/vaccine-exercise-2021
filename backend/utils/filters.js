@@ -1,11 +1,12 @@
 const { Op } = require('sequelize')
 
-const addVaccinationFilters = (filters, query) => {
+const addVaccinationFilters = (filters, orders, query) => {
   let returnQuery = query
 
   if (filters.beginVaccinations && !filters.endVaccinations) returnQuery = addVaccinationDateBegin(filters.beginVaccinations, returnQuery)
   if (filters.endVaccinations && !filters.beginVaccinations) returnQuery = addVaccinationDateEnd(filters.endVaccinations, returnQuery)
   if (filters.beginVaccinations && filters.endVaccinations) returnQuery = addVaccinationDateBetween(filters.beginVaccinations, filters.endVaccinations, returnQuery)
+  if (filters.byOrders) returnQuery = filterVaccinationsByOrders(orders, returnQuery)
 
   return returnQuery
 }
@@ -16,8 +17,7 @@ const addOrderFilters = (filters, vaccinations, query) => {
   if (filters.beginOrders && !filters.endOrders) returnQuery = addArrivedBegin(filters.beginOrders, returnQuery)
   if (filters.endOrders && !filters.beginOrders) returnQuery = addArrivedEnd(filters.endOrders, returnQuery)
   if (filters.beginOrders && filters.endOrders) returnQuery = addArrivedBetween(filters.beginOrders, filters.endOrders, returnQuery)
-
-  returnQuery = filterOrdersByVaccinations(vaccinations, returnQuery)
+  if (filters.byVaccinations) returnQuery = filterOrdersByVaccinations(vaccinations, returnQuery)
 
   return returnQuery
 }
@@ -64,11 +64,19 @@ const filterOrdersByVaccinations = (vaccinations, query) => {
   return returnQuery
 }
 
+const filterVaccinationsByOrders = (orders, query) => {
+  let returnQuery = query
+  returnQuery.where = { ...returnQuery.where, sourceBottle: orders.map(order => order.id) }
+  return returnQuery
+}
+
 const defaultFilters = {
   beginVaccinations: false,
   endVaccinations: false,
   beginOrders: false,
-  endOrders: false
+  endOrders: false,
+  byVaccinations: true,
+  byOrders: true
 }
 
 const assignFilters = (filters) => Object.assign(Object.assign({}, defaultFilters), filters)

@@ -10,8 +10,15 @@ router.get('/vaccinations', async (req, res) =>
       beginVaccinations: req.query.beginVaccinations,
       endVaccinations: req.query.endVaccinations,
       beginOrders: req.query.beginOrders,
-      endOrders: req.query.endOrders
-    }))))
+      endOrders: req.query.endOrders,
+      byVaccinations: false,
+      byOrders: true
+    }),
+    [
+      (req.query.antiqua === 'true' ? 'Antiqua' : null),
+      (req.query.solarbuddhica === 'true' ? 'SolarBuddhica' : null),
+      (req.query.zerpfy === 'true' ? 'Zerpfy' : null)
+    ])))
 
 router.get('/orders', async (req, res) => {
   res.status(200).json(await controller.findAllOrders(
@@ -19,7 +26,9 @@ router.get('/orders', async (req, res) => {
       beginVaccinations: req.query.beginVaccinations,
       endVaccinations: req.query.endVaccinations,
       beginOrders: req.query.beginOrders,
-      endOrders: req.query.endOrders
+      endOrders: req.query.endOrders,
+      byVaccinations: true,
+      byOrders: false
     }),
     [
       (req.query.antiqua === 'true' ? 'Antiqua' : null),
@@ -34,7 +43,9 @@ router.get('/totalamount', async (req, res) => {
       beginVaccinations: req.query.beginVaccinations,
       endVaccinations: req.query.endVaccinations,
       beginOrders: req.query.beginOrders,
-      endOrders: req.query.endOrders
+      endOrders: req.query.endOrders,
+      byVaccinations: true,
+      byOrders: false
     }),
     [
       (req.query.antiqua === 'true' ? 'Antiqua' : null),
