@@ -24,7 +24,7 @@ const CumulativeTotalAmount = ({ totalOrders }) => {
       borderColor: '#cc0099'
     },
     {
-      label: 'Expired vaccines of total',
+      label: 'Cumulative expired or expiring vaccines of total',
       data: totalOrders !== undefined && totalOrders.vaccinationDates !== undefined
         && totalOrders.orderIds !== undefined && totalOrders.injections !== undefined
         && totalOrders.vaccinationDates.length === totalOrders.labels.length
