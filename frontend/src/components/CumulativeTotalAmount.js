@@ -5,7 +5,7 @@ import convertArrayCumulative from '../utils/convertArrayCumulative'
 const CumulativeTotalAmount = ({ totalOrders }) => {
 
   const data = {
-    labels: totalOrders !== undefined && totalOrders.labels !== undefined ? totalOrders.labels : [],
+    labels: totalOrders !== undefined && totalOrders.labels !== undefined ? [...totalOrders.labels] : [],
     datasets: [{
       label: 'Cumulative orders',
       data: totalOrders !== undefined && totalOrders.orderIds !== undefined ? [...totalOrders.orderIds.map(ids => ids.length)].map(convertArrayCumulative(0)) : [],

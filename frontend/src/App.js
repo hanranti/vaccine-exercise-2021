@@ -35,7 +35,10 @@ function App() {
 
   useEffect(() => {
     getAll('totalamount' + filterQuery).then(response => setTotalOrders(response))
-    getAll('expired' + filterQuery).then(response => setExpiredOrders(response))
+    getAll('expired' + filterQuery).then(response => {
+      setExpiredOrders(response)
+      console.log(response)
+    })
     getAll('info').then(response => setInfo(response))
   }, [vaccines, genders, beginVaccinations, endVaccinations, beginOrders, endOrders, expirationDate])
 

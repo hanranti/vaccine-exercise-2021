@@ -82,17 +82,18 @@ router.get('/expired', async (req, res) =>
     byVaccinations: true,
     byOrders: false,
     expirationDate: req.query.expirationdate,
+    expirationTime: 2592000000,
     gender: [
       (req.query.male === 'true' ? 'male' : null),
       (req.query.female === 'true' ? 'female' : null),
       (req.query.nonbinary === 'true' ? 'nonbinary' : null),
     ]
   }),
-  [
-    (req.query.antiqua === 'true' ? 'Antiqua' : null),
-    (req.query.solarbuddhica === 'true' ? 'SolarBuddhica' : null),
-    (req.query.zerpfy === 'true' ? 'Zerpfy' : null)
-  ]))
+    [
+      (req.query.antiqua === 'true' ? 'Antiqua' : null),
+      (req.query.solarbuddhica === 'true' ? 'SolarBuddhica' : null),
+      (req.query.zerpfy === 'true' ? 'Zerpfy' : null)
+    ]))
 )
 
 router.get('/info', async (req, res) =>
@@ -110,11 +111,11 @@ router.get('/info', async (req, res) =>
       'nonbinary',
     ]
   }),
-  [
-    'Antiqua',
-    'SolarBuddhica',
-    'Zerpfy'
-  ]))
+    [
+      'Antiqua',
+      'SolarBuddhica',
+      'Zerpfy'
+    ]))
 )
 
 router.get('/ping', async (req, res) => res.status(200).json({ message: 'ping' }))

@@ -5,7 +5,7 @@ const TotalAmount = ({ totalOrders }) => {
 
   const data = {
     labels: totalOrders !== undefined && totalOrders.labels !== undefined
-      ? totalOrders.labels : [],
+      ? [...totalOrders.labels] : [],
     datasets: [{
       label: 'Total orders',
       data: totalOrders !== undefined && totalOrders.orderIds !== undefined

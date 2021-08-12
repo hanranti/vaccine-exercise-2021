@@ -1,115 +1,58 @@
 # vaccination-exercise
 
-THL has ordered us to create a vaccination database which contains information about vaccine orders and vaccinations.
+## Installation
 
-We have received files which contains the base data for the application
+To run this application on linux you need to install at least node version v16.6.1, npm version 7.20.3, docker version 20.10.8 and docker-compose version 1.29.2
 
-The Orders are in different files named by the manufacturer of a vaccine.
+Node and npm can be foud here
 
-Injections must be used in 30 days after the arrival of the bottle.
+[Node and npm](https://nodejs.org/en/)
 
-[name].source "Zerpfy"|"Antiqua"|"SolarBuddhica"
+and docker/docker-compose installation instructions can be found from these links
 
-The source file has one json item per line.
+[docker](https://docs.docker.com/engine/install/ubuntu/)
+[docker-compose](https://docs.docker.com/compose/install/)
 
-## Format of an order
+You also need to add yourself to the docker group explained in the following
 
-```json
-{
-  "id": "universal identifier of the order",
-  "healthCareDistrict": "HYKS|KYS|OYS|TAYS|TYKS",
-  "orderNumber": "Rising number of the order",
-  "responsiblePerson": "Name of the person who is responsible to track the delivery",
-  "injections": "number of injections available in a bottle",
-  "arrived": "ISO datetime",
-  "vaccine": "Zerpfy|Antiqua|SolarBuddhica"
-}
-```
+[docker post-installation steps](https://docs.docker.com/engine/install/linux-postinstall/)
 
-## Example order
+Next step is to download the source code with git which should come with most linux distributions. The following command downloads the source to your current directory.
 
-SolarBuddhica.source:
+`git clone git@github.com:hanranti/vaccine-exercise-2021.git`
 
-```json
-{
-  "id": "2b00bc58-3faf-4d06-bb11-ef47aad8086a",
-  "orderNumber": 4194,
-  "responsiblePerson": "Arhippa Pihkala",
-  "healthCareDistrict": "TYKS",
-  "vaccine": "SolarBuddhica",
-  "injections": 6,
-  "arrived": "2021-04-07T01:10:30.696768Z"
-}
-```
+When the download is done move into the scripts folder to give execution permissions for initialization scripts.
 
-## Vaccination structure
+`cd vaccine-exercise-2021/scripts`
 
-vaccinations.source is a json array which has information of all the vaccinations currently made
+`chmod u+x *`
 
-The datastructure is
+Move back into root of the repository to create an .env file
 
-```json
-{
-  "vaccination-id": "universal identifier of the vaccination",
-  "gender": "male|female|nonbinary",
-  "sourceBottle": "universal identifier of the bottle",
-  "injected": "Datetime"
-}
-```
+`cd ..`
 
-## Example vaccination
+`cp example.env .env`
 
-```json
-{"vaccination-id":"e28a0fb5-3956-4ba6-827f-4dcae64e4cda",
-"sourceBottle":"2b00bc58-3faf-4d06-bb11-ef47aad8086a",
-"gender":"nonbinary",
-"vaccinationDate":"2021-04-08T11:00:20.740994Z"}
-```
+The file that was copied is the new .env file but POSTGRES_PASSWORD environment variable should be changed within it to a secure password.
 
-# The exercise
+The application is ready to be initialized.
 
-Make a web application for presenting some interesting data about the vaccinations.
+## Initialization and running the app
 
-Return the exercise as a link to your GitHub repository.
+`npm start` in the repository root sets up everything necessary and starts the app.
 
-## Technology choices
+Running `npm start` runs the scripts in the scripts folder to install npm packages, build docker containers, convert given data into readable form and feed the data to the postgresql database. As last step it starts the docker containers detaced. To attach run `docker-compose up`
 
-Feel free to use whatever you think is best for this kind of stuff.
+After this step the application can be started and stopped with `docker-compose up` and `docker-compose down`
 
-React/Vue.js/Angular or something else for the web frontend. All is fine.
+## Running tests
 
-Swift/Kotlin/React Native/Flutter etc. or a mobile technology of your choice.
+This application has backend, frontend and e2e tests
 
-Node.js/Clojure/Go/Rust/Kotlin or something else for the backend.
+To run backend tests run `npm test` in `vaccine-exercise-2021/backend` This initializes the database for tests.
 
-Some kind of database could be useful for aggregating the data. MySQL/Postgresql/Oracle/FreemanDB or maybe noSQL?
+To run frontend tests run `npm test` in `vaccine-exercise-2021/frontend`
 
-## List of interesting things
+To run e2e tests run `npm run test:e2e` in `vaccine-exercise-2021` This initializes the database for tests.
 
-For given day like 2021-04-12T11:10:06
-
-* How many orders and vaccines have arrived total?
-* How many of the vaccinations have been used?
-* How many orders/vaccines per producer?
-* How many bottles have expired on the given day (remember a bottle expires 30 days after arrival)
-* How many vaccines expired before the usage -> remember to decrease used injections from the expired bottle
-* How many vaccines are left to use?
-* How many vaccines are going to expire in the next 10 days?
-
-Perhaps there is some other data which could tell us some interesting things?
-
-## Some numbers to help you
-
-* Total number of orders 5000
-* Vaccinations done 7000
-* "2021-03-20" arrived 61 orders.
-* When counted from "2021-04-12T11:10:06.473587Z" 12590 vaccines expired before usage (injections in the expiring bottles 17423
-  and injections done from the expired bottles 4833)
-
-## Some tips
-
-* You don't need to do all these for a good result.
-* You can make graphs from the data but textual representation suffice also.
-* Think about the tests for your application.
-* You can test the frontend also
-* Add README.md which have instructions how to build/run your software and how to run the tests.
+Some of the tests are disabled due to not yet working.

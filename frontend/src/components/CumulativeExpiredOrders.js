@@ -5,8 +5,11 @@ import convertArrayCumulative from '../utils/convertArrayCumulative'
 const CumulativeExpiredOrders = ({ expiredOrders }) => {
 
   const data = {
-    labels: expiredOrders !== undefined && expiredOrders.expirationDate !== undefined
-      ? expiredOrders.expirationDate : [],
+    labels: expiredOrders !== undefined && expiredOrders.labels !== undefined
+      ? [...expiredOrders.labels].map(label => {
+        const labelDate = new Date(label)
+        return new Date(labelDate.setDate(labelDate.getDate() + 30)).toISOString().split('T')[0]
+      }) : [],
     datasets: [{
       label: 'Cumulative expired injections',
       data: expiredOrders !== undefined && expiredOrders.expired !== undefined

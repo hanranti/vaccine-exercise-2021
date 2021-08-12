@@ -92,8 +92,6 @@ const getExpiredData = async (filters, vaccine) => {
 
   totalOrders.expired = totalOrders.labels.map(label =>
     totalOrders.injections[totalOrders.labels.indexOf(label)])
-  totalOrders.expirationDate = totalOrders.labels.map(label =>
-    new Date(new Date(label) + filters.expirationTime).toISOString().split('T')[0])
 
   delete totalOrders.injections
   delete totalOrders.orderIds

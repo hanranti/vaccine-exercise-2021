@@ -4,8 +4,11 @@ import { Chart } from 'primereact/chart'
 const ExpiredOrders = ({ expiredOrders }) => {
 
   const data = {
-    labels: expiredOrders !== undefined && expiredOrders.expirationDate !== undefined
-      ? expiredOrders.expirationDate : [],
+    labels: expiredOrders !== undefined && expiredOrders.labels !== undefined
+      ? [...expiredOrders.labels].map(label => {
+        const labelDate = new Date(label)
+        return new Date(labelDate.setDate(labelDate.getDate() + 30)).toISOString().split('T')[0]
+      }) : [],
     datasets: [{
       label: 'Expired injections',
       data: expiredOrders !== undefined && expiredOrders.expired !== undefined
@@ -38,13 +41,13 @@ const ExpiredOrders = ({ expiredOrders }) => {
   }
 
   return (
-    <div className="p-col-12 p-lg-8">
+    <div className="p-col-12 p-lg-8" >
       <div className="p-shadow-1" style={container}>
         <div className="card" style={card}>
           <Chart type='bar' data={data} options={options} />
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 
