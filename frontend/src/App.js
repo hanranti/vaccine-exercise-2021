@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import 'primereact/resources/themes/saga-orange/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
@@ -10,14 +10,17 @@ import Content from './components/Content'
 function App() {
 
   const [totalOrders, setTotalOrders] = useState({})
+  const [expiredOrders, setExpiredOrders] = useState({})
   const [vaccines, setVaccines] = useState([true, true, true])
   const [genders, setGenders] = useState([true, true, true])
   const [beginVaccinations, setBeginVaccinations] = useState(false)
   const [endVaccinations, setEndVaccinations] = useState(false)
   const [beginOrders, setBeginOrders] = useState(false)
   const [endOrders, setEndOrders] = useState(false)
+  const [expirationDate, setExpirationDate] = useState(false)
 
-  const filterQuery = `${vaccines[0] ? 'antiqua=true&&' : ''}` +
+  const filterQuery = '?' +
+    `${vaccines[0] ? 'antiqua=true&&' : ''}` +
     `${vaccines[1] ? 'solarbuddhica=true&&' : ''}` +
     `${vaccines[2] ? 'zerpfy=true&&' : ''}` +
     `${genders[0] ? 'male=true&&' : ''}` +
@@ -26,11 +29,14 @@ function App() {
     `${beginVaccinations ? 'beginVaccinations=' + beginVaccinations + '&&' : ''}` +
     `${endVaccinations ? 'endVaccinations=' + endVaccinations + '&&' : ''}` +
     `${beginOrders ? 'beginOrders=' + beginOrders + '&&' : ''}` +
-    `${endOrders ? 'endOrders=' + endOrders + '&&' : ''}`
+    `${endOrders ? 'endOrders=' + endOrders + '&&' : ''}` +
+    `${expirationDate ? 'expirationdate=' + expirationDate + '&&' : ''}`
 
   useEffect(() => {
-    getAll('totalamount?' + filterQuery).then(response => setTotalOrders(response))
-  }, [vaccines, genders, beginVaccinations, endVaccinations, beginOrders, endOrders])
+    getAll('totalamount' + filterQuery).then(response => setTotalOrders(response))
+    console.log(filterQuery)
+    getAll('expired' + filterQuery).then(response => setExpiredOrders(response))
+  }, [vaccines, genders, beginVaccinations, endVaccinations, beginOrders, endOrders, expirationDate])
 
   const topBarData = {
     vaccines: vaccines,
@@ -44,19 +50,22 @@ function App() {
     setBeginVaccinations: setBeginVaccinations,
     setEndVaccinations: setEndVaccinations,
     setBeginOrders: setBeginOrders,
-    setEndOrders: setEndOrders
+    setEndOrders: setEndOrders,
+    expirationDate: expirationDate,
+    setExpirationDate: setExpirationDate
   }
 
   const contentData = {
-    totalOrders: totalOrders
+    totalOrders: totalOrders,
+    expiredOrders: expiredOrders
   }
 
   return (
     <div className="App">
-      <BrowserRouter basename={process.env.REACT_APP_ROUTER_BASENAME}>
+      <Router basename={process.env.REACT_APP_ROUTER_BASENAME}>
         <Topbar topBarData={topBarData} />
         <Content contentData={contentData} />
-      </BrowserRouter>
+      </Router>
     </div>
   )
 }

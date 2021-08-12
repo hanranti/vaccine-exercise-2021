@@ -18,7 +18,8 @@ const addOrderFilters = (filters, vaccinations, query) => {
   if (filters.beginOrders && !filters.endOrders) returnQuery = addArrivedBegin(filters.beginOrders, returnQuery)
   if (filters.endOrders && !filters.beginOrders) returnQuery = addArrivedEnd(filters.endOrders, returnQuery)
   if (filters.beginOrders && filters.endOrders) returnQuery = addArrivedBetween(filters.beginOrders, filters.endOrders, returnQuery)
-  if (filters.byVaccinations) returnQuery = filterOrdersByVaccinations(vaccinations, returnQuery)
+  if (filters.expirationDate) returnQuery = filterExpiredOrders(filters, vaccinations, returnQuery)
+  else if (filters.byVaccinations) returnQuery = filterOrdersByVaccinations(vaccinations, returnQuery)
 
   return returnQuery
 }
@@ -77,6 +78,16 @@ const filterVaccinationsByGender = (filters, query) => {
   return returnQuery
 }
 
+const filterExpiredOrders = (filters, vaccinations, query) => {
+  let returnQuery = query
+  returnQuery.where = {
+    ...returnQuery.where,
+    id: { [Op.not]: vaccinations.map(vaccination => vaccination.sourceBottle) },
+    arrived: { [Op.lte]: new Date(new Date(filters.expirationDate) - filters.expirationTime) }
+  }
+  return returnQuery
+}
+
 const defaultFilters = {
   beginVaccinations: false,
   endVaccinations: false,
@@ -84,7 +95,9 @@ const defaultFilters = {
   endOrders: false,
   byVaccinations: false,
   byOrders: false,
-  gender: ['male', 'female', 'nonbinary']
+  gender: ['male', 'female', 'nonbinary'],
+  expirationDate: false,
+  expirationTime: 2592000000
 }
 
 const assignFilters = (filters) => Object.assign(Object.assign({}, defaultFilters), filters)

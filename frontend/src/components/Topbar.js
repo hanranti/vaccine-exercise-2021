@@ -109,6 +109,15 @@ const Topbar = ({ topBarData }) => {
             !topBarData.genders[2]
           ])
         }} />
+        <h4>Filter by expiration date:</h4>
+        <input
+          className="p-inputtext p-component"
+          type="date"
+          value={topBarData.expirationDate}
+          onChange={e => topBarData.setExpirationDate(e.target.value)}></input>
+        <InputSwitch
+          checked={topBarData.expirationDate}
+          onChange={() => topBarData.setExpirationDate(false)} />
       </Sidebar>
     </React.Fragment>
   )
@@ -117,6 +126,7 @@ const Topbar = ({ topBarData }) => {
     <React.Fragment>
       <Button label='All' onClick={() => { history.push('/') }} />
       <Button label='OrdersAndInjections' onClick={() => { history.push('/totalamount') }} />
+      <Button label='ExpiredOrders' onClick={() => { history.push('/expired') }} />
       <i>Created by hanranti</i>
     </React.Fragment>
   )

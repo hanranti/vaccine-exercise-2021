@@ -1,9 +1,8 @@
 import React from 'react'
 import { Chart } from 'primereact/chart'
+import convertArrayCumulative from '../utils/convertArrayCumulative'
 
 const CumulativeTotalAmount = ({ totalOrders }) => {
-
-  const convertArrayCumulative = a => (s => v => s += v)(a)
 
   const data = {
     labels: totalOrders !== undefined && totalOrders.labels !== undefined ? totalOrders.labels : [],
