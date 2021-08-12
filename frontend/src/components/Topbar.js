@@ -20,6 +20,7 @@ const Topbar = ({ topBarData }) => {
       <h1>Vaccine Exercise 2021</h1>
       <Button label='Filters' onClick={() => setShowFilters(true)} />
       <Sidebar position='left' className="ui-sidebar-sm" visible={showFilters} onHide={() => setShowFilters(false)}>
+        <h4>Filter by vaccine:</h4>
         <h6>Antiqua</h6>
         <InputSwitch checked={topBarData.vaccines[0]} onChange={() => {
           topBarData.setVaccines([
@@ -45,7 +46,7 @@ const Topbar = ({ topBarData }) => {
           ])
         } />
         <h4>Time based filtering</h4>
-        <h5>Vaccination date:</h5>
+        <h6>Vaccination date:</h6>
         <p>begin</p>
         <input
           className="p-inputtext p-component"
@@ -64,7 +65,7 @@ const Topbar = ({ topBarData }) => {
         <InputSwitch
           checked={topBarData.endVaccinations}
           onChange={() => topBarData.setEndVaccinations(false)} />
-        <h5>Orders arrived date:</h5>
+        <h6>Orders arrived date:</h6>
         <p>begin</p>
         <input
           className="p-inputtext p-component"
@@ -83,6 +84,31 @@ const Topbar = ({ topBarData }) => {
         <InputSwitch
           checked={topBarData.endOrders}
           onChange={() => topBarData.setEndOrders(false)} />
+        <h4>Filter by gender:</h4>
+        <h6>male</h6>
+        <InputSwitch checked={topBarData.genders[0]} onChange={() => {
+          topBarData.setGenders([
+            !topBarData.genders[0],
+            topBarData.genders[1],
+            topBarData.genders[2]
+          ])
+        }} />
+        <h6>female</h6>
+        <InputSwitch checked={topBarData.genders[1]} onChange={() => {
+          topBarData.setGenders([
+            topBarData.genders[0],
+            !topBarData.genders[1],
+            topBarData.genders[2]
+          ])
+        }} />
+        <h6>nonbinary</h6>
+        <InputSwitch checked={topBarData.genders[2]} onChange={() => {
+          topBarData.setGenders([
+            topBarData.genders[0],
+            topBarData.genders[1],
+            !topBarData.genders[2]
+          ])
+        }} />
       </Sidebar>
     </React.Fragment>
   )

@@ -2,6 +2,7 @@ import React from 'react'
 import { Chart } from 'primereact/chart'
 
 const TotalAmount = ({ totalOrders }) => {
+
   const data = {
     labels: totalOrders !== undefined && totalOrders.labels !== undefined
       ? totalOrders.labels : [],
@@ -26,6 +27,8 @@ const TotalAmount = ({ totalOrders }) => {
     {
       label: 'Expired vaccines of total',
       data: totalOrders !== undefined && totalOrders.vaccinationDates !== undefined
+        && totalOrders.orderIds !== undefined && totalOrders.injections !== undefined
+        && totalOrders.vaccinationDates.length === totalOrders.labels.length
         ? [...totalOrders.orderIds.map(
           ids => totalOrders.injections[totalOrders.orderIds.indexOf(ids)]
             - totalOrders.vaccinationDates[totalOrders.orderIds.indexOf(ids)].length)] : [],

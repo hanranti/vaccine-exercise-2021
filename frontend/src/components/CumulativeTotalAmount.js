@@ -26,9 +26,11 @@ const CumulativeTotalAmount = ({ totalOrders }) => {
     {
       label: 'Expired vaccines of total',
       data: totalOrders !== undefined && totalOrders.vaccinationDates !== undefined
+        && totalOrders.orderIds !== undefined && totalOrders.injections !== undefined
+        && totalOrders.vaccinationDates.length === totalOrders.labels.length
         ? [...totalOrders.orderIds.map(
-          ids => totalOrders.injections[totalOrders.orderIds.indexOf(ids)]
-            - totalOrders.vaccinationDates[totalOrders.orderIds.indexOf(ids)].length)].map(convertArrayCumulative(0)) : [],
+          (ids => totalOrders.injections[totalOrders.orderIds.indexOf(ids)]
+            - totalOrders.vaccinationDates[totalOrders.orderIds.indexOf(ids)].length))].map(convertArrayCumulative(0)) : [],
       borderColor: '#ff0000'
     }]
   }

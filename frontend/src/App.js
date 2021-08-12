@@ -11,6 +11,7 @@ function App() {
 
   const [totalOrders, setTotalOrders] = useState({})
   const [vaccines, setVaccines] = useState([true, true, true])
+  const [genders, setGenders] = useState([true, true, true])
   const [beginVaccinations, setBeginVaccinations] = useState(false)
   const [endVaccinations, setEndVaccinations] = useState(false)
   const [beginOrders, setBeginOrders] = useState(false)
@@ -19,6 +20,9 @@ function App() {
   const filterQuery = `${vaccines[0] ? 'antiqua=true&&' : ''}` +
     `${vaccines[1] ? 'solarbuddhica=true&&' : ''}` +
     `${vaccines[2] ? 'zerpfy=true&&' : ''}` +
+    `${genders[0] ? 'male=true&&' : ''}` +
+    `${genders[1] ? 'female=true&&' : ''}` +
+    `${genders[2] ? 'nonbinary=true&&' : ''}` +
     `${beginVaccinations ? 'beginVaccinations=' + beginVaccinations + '&&' : ''}` +
     `${endVaccinations ? 'endVaccinations=' + endVaccinations + '&&' : ''}` +
     `${beginOrders ? 'beginOrders=' + beginOrders + '&&' : ''}` +
@@ -26,11 +30,13 @@ function App() {
 
   useEffect(() => {
     getAll('totalamount?' + filterQuery).then(response => setTotalOrders(response))
-  }, [vaccines, beginVaccinations, endVaccinations, beginOrders, endOrders])
+  }, [vaccines, genders, beginVaccinations, endVaccinations, beginOrders, endOrders])
 
   const topBarData = {
     vaccines: vaccines,
     setVaccines: setVaccines,
+    genders: genders,
+    setGenders: setGenders,
     beginVaccinations: beginVaccinations,
     endVaccinations: endVaccinations,
     beginOrders: beginOrders,

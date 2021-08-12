@@ -12,7 +12,12 @@ router.get('/vaccinations', async (req, res) =>
       beginOrders: req.query.beginOrders,
       endOrders: req.query.endOrders,
       byVaccinations: false,
-      byOrders: true
+      byOrders: true,
+      gender: [
+        (req.query.male === 'true' ? 'male' : null),
+        (req.query.female === 'true' ? 'female' : null),
+        (req.query.nonbinary === 'true' ? 'nonbinary' : null),
+      ]
     }),
     [
       (req.query.antiqua === 'true' ? 'Antiqua' : null),
@@ -28,7 +33,12 @@ router.get('/orders', async (req, res) => {
       beginOrders: req.query.beginOrders,
       endOrders: req.query.endOrders,
       byVaccinations: true,
-      byOrders: false
+      byOrders: false,
+      gender: [
+        (req.query.male === 'true' ? 'male' : null),
+        (req.query.female === 'true' ? 'female' : null),
+        (req.query.nonbinary === 'true' ? 'nonbinary' : null),
+      ]
     }),
     [
       (req.query.antiqua === 'true' ? 'Antiqua' : null),
@@ -45,7 +55,12 @@ router.get('/totalamount', async (req, res) => {
       beginOrders: req.query.beginOrders,
       endOrders: req.query.endOrders,
       byVaccinations: true,
-      byOrders: false
+      byOrders: false,
+      gender: [
+        (req.query.male === 'true' ? 'male' : null),
+        (req.query.female === 'true' ? 'female' : null),
+        (req.query.nonbinary === 'true' ? 'nonbinary' : null),
+      ]
     }),
     [
       (req.query.antiqua === 'true' ? 'Antiqua' : null),

@@ -6,6 +6,7 @@ const addVaccinationFilters = (filters, orders, query) => {
   if (filters.beginVaccinations && !filters.endVaccinations) returnQuery = addVaccinationDateBegin(filters.beginVaccinations, returnQuery)
   if (filters.endVaccinations && !filters.beginVaccinations) returnQuery = addVaccinationDateEnd(filters.endVaccinations, returnQuery)
   if (filters.beginVaccinations && filters.endVaccinations) returnQuery = addVaccinationDateBetween(filters.beginVaccinations, filters.endVaccinations, returnQuery)
+  returnQuery = filterVaccinationsByGender(filters, returnQuery)
   if (filters.byOrders) returnQuery = filterVaccinationsByOrders(orders, returnQuery)
 
   return returnQuery
@@ -70,13 +71,20 @@ const filterVaccinationsByOrders = (orders, query) => {
   return returnQuery
 }
 
+const filterVaccinationsByGender = (filters, query) => {
+  let returnQuery = query
+  returnQuery.where = { ...returnQuery.where, gender: filters.gender }
+  return returnQuery
+}
+
 const defaultFilters = {
   beginVaccinations: false,
   endVaccinations: false,
   beginOrders: false,
   endOrders: false,
-  byVaccinations: true,
-  byOrders: true
+  byVaccinations: false,
+  byOrders: false,
+  gender: ['male', 'female', 'nonbinary']
 }
 
 const assignFilters = (filters) => Object.assign(Object.assign({}, defaultFilters), filters)
