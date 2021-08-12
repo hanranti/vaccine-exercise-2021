@@ -27,7 +27,6 @@ const findAllOrders = async (filters, vaccine) => {
     ]
   }
   query = addOrderFilters(filters, usedVaccines, query)
-  console.log(query)
 
   if (vaccine.includes('Antiqua')) orders = orders.concat(await db.Antiqua.findAll(query))
   if (vaccine.includes('SolarBuddhica')) orders = orders.concat(await db.SolarBuddhica.findAll(query))
@@ -84,7 +83,11 @@ const getTotalOrdersData = async (filters, vaccine) => {
   return newTotalOrders
 }
 
-const getExpiredToday = async (filters, vaccine) => {
+const getExpiredData = async (filters, vaccine) => {
+  filters.expirationDate
+    = filters.expirationDate
+      ? filters.expirationDate
+      : new Date()
   const totalOrders = await getTotalOrdersData(filters, vaccine)
 
   totalOrders.expired = totalOrders.labels.map(label =>
@@ -99,9 +102,22 @@ const getExpiredToday = async (filters, vaccine) => {
   return totalOrders
 }
 
+const getAdditionalInfo = async (filters, vaccine) => {
+  const totalOrders = await getTotalOrdersData(filters, vaccine)
+  const expired = await getExpiredData(filters, vaccine)
+  const additionalInfo = {
+    usedVaccinesSum: totalOrders.vaccinationDates
+      .map(dates => dates.length)
+      .reduce((a, b) => a + b, 0),
+    expiredSum: expired.expired.reduce((a, b) => a + b, 0)
+  }
+  return additionalInfo
+}
+
 module.exports = {
   findAllVaccinations,
   findAllOrders,
   getTotalOrdersData,
-  getExpiredToday
+  getExpiredData,
+  getAdditionalInfo
 }

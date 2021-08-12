@@ -74,7 +74,7 @@ router.get('/totalamount', async (req, res) =>
 )
 
 router.get('/expired', async (req, res) =>
-  res.status(200).json(await controller.getExpiredToday(assignFilters({
+  res.status(200).json(await controller.getExpiredData(assignFilters({
     beginVaccinations: false,
     endVaccinations: false,
     beginOrders: false,
@@ -88,11 +88,33 @@ router.get('/expired', async (req, res) =>
       (req.query.nonbinary === 'true' ? 'nonbinary' : null),
     ]
   }),
-    [
-      (req.query.antiqua === 'true' ? 'Antiqua' : null),
-      (req.query.solarbuddhica === 'true' ? 'SolarBuddhica' : null),
-      (req.query.zerpfy === 'true' ? 'Zerpfy' : null)
-    ]))
+  [
+    (req.query.antiqua === 'true' ? 'Antiqua' : null),
+    (req.query.solarbuddhica === 'true' ? 'SolarBuddhica' : null),
+    (req.query.zerpfy === 'true' ? 'Zerpfy' : null)
+  ]))
+)
+
+router.get('/info', async (req, res) =>
+  res.status(200).json(await controller.getAdditionalInfo(assignFilters({
+    beginVaccinations: false,
+    endVaccinations: false,
+    beginOrders: false,
+    endOrders: false,
+    byVaccinations: false,
+    byOrders: false,
+    expirationDate: new Date().toISOString().split('T')[0],
+    gender: [
+      'male',
+      'female',
+      'nonbinary',
+    ]
+  }),
+  [
+    'Antiqua',
+    'SolarBuddhica',
+    'Zerpfy'
+  ]))
 )
 
 router.get('/ping', async (req, res) => res.status(200).json({ message: 'ping' }))

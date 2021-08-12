@@ -11,6 +11,7 @@ function App() {
 
   const [totalOrders, setTotalOrders] = useState({})
   const [expiredOrders, setExpiredOrders] = useState({})
+  const [info, setInfo] = useState({})
   const [vaccines, setVaccines] = useState([true, true, true])
   const [genders, setGenders] = useState([true, true, true])
   const [beginVaccinations, setBeginVaccinations] = useState(false)
@@ -34,8 +35,8 @@ function App() {
 
   useEffect(() => {
     getAll('totalamount' + filterQuery).then(response => setTotalOrders(response))
-    console.log(filterQuery)
     getAll('expired' + filterQuery).then(response => setExpiredOrders(response))
+    getAll('info').then(response => setInfo(response))
   }, [vaccines, genders, beginVaccinations, endVaccinations, beginOrders, endOrders, expirationDate])
 
   const topBarData = {
@@ -57,7 +58,8 @@ function App() {
 
   const contentData = {
     totalOrders: totalOrders,
-    expiredOrders: expiredOrders
+    expiredOrders: expiredOrders,
+    info: info
   }
 
   return (

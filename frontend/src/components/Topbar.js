@@ -127,6 +127,7 @@ const Topbar = ({ topBarData }) => {
       <Button label='All' onClick={() => { history.push('/') }} />
       <Button label='OrdersAndInjections' onClick={() => { history.push('/totalamount') }} />
       <Button label='ExpiredOrders' onClick={() => { history.push('/expired') }} />
+      <Button label='Info' onClick={() => { history.push('/info') }} />
       <i>Created by hanranti</i>
     </React.Fragment>
   )

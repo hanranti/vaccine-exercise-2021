@@ -8,7 +8,7 @@ const CumulativeExpiredOrders = ({ expiredOrders }) => {
     labels: expiredOrders !== undefined && expiredOrders.expirationDate !== undefined
       ? expiredOrders.expirationDate : [],
     datasets: [{
-      label: 'Expired injections',
+      label: 'Cumulative expired injections',
       data: expiredOrders !== undefined && expiredOrders.expired !== undefined
         ? [...expiredOrders.expired.map(convertArrayCumulative(0))] : [],
       backgroundColor: '#ff0000'
