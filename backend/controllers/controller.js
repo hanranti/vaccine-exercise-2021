@@ -41,7 +41,6 @@ const getTotalOrdersData = async (filters, vaccine) => {
   const unMergedOrders = {
     labels: orders.map(order => order.arrived),
     injections: orders.map(order => order.injections),
-    orders: orders.map(() => 1),
     orderIds: orders.map(order => order.id)
   }
 
