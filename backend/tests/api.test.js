@@ -8,6 +8,7 @@ const testBeginVaccinations = '2021-02-02T22:33:39.643569Z'
 const testBeginOrders = '2019-02-02T22:33:39.643569Z'
 const testEndVaccinations = '2021-03-13T11:08:11.643530Z'
 const testEndOrders = '2023-03-13T11:08:11.643530Z'
+//const testExpirationDate = '2021-04-06'
 
 describe('api', () => {
 
@@ -57,43 +58,50 @@ describe('api', () => {
         res.body.length = 0
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true')
+    await api.get(apiUrl + '/orders')
+      .query({ antiqua: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 1661
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?solarbuddhica=true')
+    await api.get(apiUrl + '/orders')
+      .query({ solarbuddhica: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 1676
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?zerpfy=true')
+    await api.get(apiUrl + '/orders')
+      .query({ zerpfy: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 1663
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true?solarbuddhica=true')
+    await api.get(apiUrl + '/orders')
+      .query({ antiqua: true, solarbuddhica: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 3337
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true?zerpfy=true')
+    await api.get(apiUrl + '/orders')
+      .query({ antiqua: true, zerpfy: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 3324
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?solarbuddhica=true?zerpfy=true')
+    await api.get(apiUrl + '/orders')
+      .query({ solarbuddhica: true, zerpfy: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 3339
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true?solarbuddhica=true?zerpfy=true')
+    await api.get(apiUrl + '/orders')
+      .query({ antiqua: true, solarbuddhica: true, zerpfy: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 5000
@@ -109,50 +117,50 @@ describe('api', () => {
         res.body.length = 0
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true')
-      .query({ beginOrders: testBeginOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ beginOrders: testBeginOrders, antiqua: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 1171
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?solarbuddhica=true')
-      .query({ beginOrders: testBeginOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ beginOrders: testBeginOrders, solarbuddhica: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 1156
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?zerpfy=true')
-      .query({ beginOrders: testBeginOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ beginOrders: testBeginOrders, zerpfy: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 1176
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true?solarbuddhica=true')
-      .query({ beginOrders: testBeginOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ beginOrders: testBeginOrders, antiqua: true, solarbuddhica: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 2327
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true?zerpfy=true')
-      .query({ beginOrders: testBeginOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ beginOrders: testBeginOrders, antiqua: true, zerpfy: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 2347
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?solarbuddhica=true?zerpfy=true')
-      .query({ beginOrders: testBeginOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ beginOrders: testBeginOrders, solarbuddhica: true, zerpfy: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 2332
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true?solarbuddhica=true?zerpfy=true')
-      .query({ beginOrders: testBeginOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ beginOrders: testBeginOrders, antiqua: true, solarbuddhica: true, zerpfy: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 3503
@@ -168,50 +176,50 @@ describe('api', () => {
         res.body.length = 0
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true')
-      .query({ endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ endOrders: testEndOrders, antiqua: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 1158
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?solarbuddhica=true')
-      .query({ endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ endOrders: testEndOrders, solarbuddhica: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 1170
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?zerpfy=true')
-      .query({ endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ endOrders: testEndOrders, zerpfy: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 1176
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true?solarbuddhica=true')
-      .query({ endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ endOrders: testEndOrders, antiqua: true, solarbuddhica: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 2328
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true?zerpfy=true')
-      .query({ endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ endOrders: testEndOrders, antiqua: true, zerpfy: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 2334
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?solarbuddhica=true?zerpfy=true')
-      .query({ endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ endOrders: testEndOrders, solarbuddhica: true, zerpfy: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 2346
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true?solarbuddhica=true?zerpfy=true')
-      .query({ endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ endOrders: testEndOrders, antiqua: true, solarbuddhica: true, zerpfy: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 3504
@@ -227,50 +235,62 @@ describe('api', () => {
         res.body.length = 0
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true')
-      .query({ beginOrders: testBeginOrders, endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ beginOrders: testBeginOrders, endOrders: testEndOrders, antiqua: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 668
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?solarbuddhica=true')
-      .query({ beginOrders: testBeginOrders, endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ beginOrders: testBeginOrders, endOrders: testEndOrders, solarbuddhica: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 650
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?zerpfy=true')
-      .query({ beginOrders: testBeginOrders, endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({ beginOrders: testBeginOrders, endOrders: testEndOrders, zerpfy: true })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 689
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true?solarbuddhica=true')
-      .query({ beginOrders: testBeginOrders, endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({
+        beginOrders: testBeginOrders, endOrders: testEndOrders,
+        antiqua: true, solarbuddhica: true
+      })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 1318
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true?zerpfy=true')
-      .query({ beginOrders: testBeginOrders, endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({
+        beginOrders: testBeginOrders, endOrders: testEndOrders,
+        antiqua: true, zerpfy: true
+      })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 1357
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?solarbuddhica=true?zerpfy=true')
-      .query({ beginOrders: testBeginOrders, endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({
+        beginOrders: testBeginOrders, endOrders: testEndOrders,
+        solarbuddhica: true, zerpfy: true
+      })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 1339
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true?solarbuddhica=true?zerpfy=true')
-      .query({ beginOrders: testBeginOrders, endOrders: testEndOrders })
+    await api.get(apiUrl + '/orders')
+      .query({
+        beginOrders: testBeginOrders, endOrders: testEndOrders,
+        antiqua: true, solarbuddhica: true, zerpfy: true
+      })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 2007
@@ -286,34 +306,253 @@ describe('api', () => {
         res.body.length = 0
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true')
-      .query({ beginOrders: testBeginOrders, beginVaccinations: testBeginVaccinations })
+    await api.get(apiUrl + '/orders')
+      .query({
+        beginOrders: testBeginOrders, beginVaccinations: testBeginVaccinations,
+        antiqua: true
+      })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 668
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?solarbuddhica=true')
-      .query({ beginOrders: testBeginOrders, beginVaccinations: testBeginVaccinations, endVaccinations: testEndVaccinations })
+    await api.get(apiUrl + '/orders')
+      .query({
+        beginOrders: testBeginOrders, beginVaccinations: testBeginVaccinations, endVaccinations: testEndVaccinations,
+        solarbuddhica: true
+      })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 650
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?zerpfy=true')
-      .query({ beginOrders: testBeginOrders, endOrders: testEndOrders, beginVaccinations: testBeginVaccinations })
+    await api.get(apiUrl + '/orders')
+      .query({
+        beginOrders: testBeginOrders, endOrders: testEndOrders, beginVaccinations: testBeginVaccinations,
+        zerpfy: true
+      })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 689
       })
       .expect(200)
-    await api.get(apiUrl + '/orders?antiqua=true?solarbuddhica=true')
-      .query({ beginOrders: testBeginOrders, endOrders: testEndOrders, endVaccinations: testEndVaccinations })
+    await api.get(apiUrl + '/orders')
+      .query({
+        beginOrders: testBeginOrders, endOrders: testEndOrders, endVaccinations: testEndVaccinations,
+        antiqua: true, solarbuddhica: true
+      })
       .expect('Content-Type', /json/)
       .expect(function (res) {
         res.body.length = 1318
       })
   })
 
+  test('returns correct amount of orders when filtered with vaccination begin and/or end and/or gender', async () => {
+    await api.get(apiUrl + '/orders')
+      .query({
+        beginOrders: testBeginOrders, endVaccinations: testBeginVaccinations,
+        male: true, female: false, nonbinary: true
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.length = 0
+      })
+      .expect(200)
+    await api.get(apiUrl + '/orders')
+      .query({
+        beginOrders: testBeginOrders, beginVaccinations: testBeginVaccinations,
+        antiqua: true, male: false, female: true, nonbinary: true
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.length = 668
+      })
+      .expect(200)
+    await api.get(apiUrl + '/orders?solarbuddhica=true')
+      .query({
+        beginOrders: testBeginOrders, beginVaccinations: testBeginVaccinations, endVaccinations: testEndVaccinations,
+        solarbuddhica: true, male: true, female: false, nonbinary: false
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.length = 650
+      })
+      .expect(200)
+    await api.get(apiUrl + '/orders')
+      .query({
+        beginOrders: testBeginOrders, endOrders: testEndOrders, beginVaccinations: testBeginVaccinations,
+        zerpfy: true, male: true, female: true, nonbinary: false
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.length = 689
+      })
+      .expect(200)
+    await api.get(apiUrl + '/orders')
+      .query({
+        beginOrders: testBeginOrders, endOrders: testEndOrders, endVaccinations: testEndVaccinations,
+        antiqua: true, solarbuddhica: true, male: false, female: false, nonbinary: true
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.length = 1318
+      })
+      .expect(200)
+  })
+
+
+  /**test('totalamount return correct amount of data', async () => {
+    await api.get(apiUrl + '/totalamount')
+      .query({
+        antiqua: true, solarbuddhica: true, zerpfy: true, male: true, female: true,
+        nonbinary: true
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.labels.length = 1318,
+          res.body.orderIds.length = 1318,
+          res.body.vaccinationDates.length = 1318,
+          res.body.injections.length = 1318
+      })
+      .expect(200)
+    await api.get(apiUrl + '/totalamount')
+      .query({
+        beginOrders: testBeginOrders, antiqua: true, solarbuddhica: true,
+        zerpfy: false, male: false, female: true, nonbinary: true
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.labels.length = 1318,
+          res.body.orderIds.length = 1318,
+          res.body.vaccinationDates.length = 1318,
+          res.body.injections.length = 1318
+      })
+      .expect(200)
+
+    await api.get(apiUrl + '/totalamount')
+      .query({
+        beginOrders: testBeginOrders, endOrders: testEndOrders, antiqua: false,
+        solarbuddhica: true, zerpfy: true, male: true, female: true, nonbinary: true
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.labels.length = 1318,
+          res.body.orderIds.length = 1318,
+          res.body.vaccinationDates.length = 1318,
+          res.body.injections.length = 1318
+      })
+      .expect(200)
+
+    await api.get(apiUrl + '/totalamount')
+      .query({
+        beginVaccinations: testBeginVaccinations, endVaccinations: testEndVaccinations,
+        antiqua: true, solarbuddhica: false, zerpfy: true, male: true, female: false, nonbinary: true
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.labels.length = 1318,
+          res.body.orderIds.length = 1318,
+          res.body.vaccinationDates.length = 1318,
+          res.body.injections.length = 1318
+      })
+      .expect(200)
+    await api.get(apiUrl + '/totalamount')
+      .query({
+        expirationDate: testExpirationDate, antiqua: true, solarbuddhica: true, zerpfy: true,
+        male: true, female: true, nonbinary: true
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.labels.length = 1318,
+          res.body.orderIds.length = 1318,
+          res.body.vaccinationDates.length = 1318,
+          res.body.injections.length = 1318
+      })
+      .expect(200)
+  })
+
+  test('expired return correct amount of data', async () => {
+    await api.get(apiUrl + '/expired')
+      .query({
+        antiqua: true, solarbuddhica: true, zerpfy: true, male: true, female: true,
+        nonbinary: true, expirationDate: testExpirationDate
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.labels.length = 1318,
+          res.body.orderIds.length = 1318,
+          res.body.vaccinationDates.length = 1318,
+          res.body.injections.length = 1318
+      })
+      .expect(200)
+    await api.get(apiUrl + '/expired')
+      .query({
+        beginOrders: testBeginOrders, antiqua: true, solarbuddhica: true,
+        zerpfy: false, male: false, female: true, nonbinary: true, expirationDate: testExpirationDate
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.labels.length = 1318,
+          res.body.orderIds.length = 1318,
+          res.body.vaccinationDates.length = 1318,
+          res.body.injections.length = 1318
+      })
+      .expect(200)
+
+    await api.get(apiUrl + '/expired')
+      .query({
+        beginOrders: testBeginOrders, endOrders: testEndOrders, antiqua: false,
+        solarbuddhica: true, zerpfy: true, male: true, female: true, nonbinary: true,
+        expirationDate: testExpirationDate
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.labels.length = 1318,
+          res.body.orderIds.length = 1318,
+          res.body.vaccinationDates.length = 1318,
+          res.body.injections.length = 1318
+      })
+      .expect(200)
+
+    await api.get(apiUrl + '/expired')
+      .query({
+        beginVaccinations: testBeginVaccinations, endVaccinations: testEndVaccinations,
+        antiqua: true, solarbuddhica: false, zerpfy: true, male: true, female: false,
+        nonbinary: true, expirationDate: testExpirationDate
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.labels.length = 1318,
+          res.body.orderIds.length = 1318,
+          res.body.vaccinationDates.length = 1318,
+          res.body.injections.length = 1318
+      })
+      .expect(200)
+    await api.get(apiUrl + '/expired')
+      .query({
+        antiqua: true, solarbuddhica: true, zerpfy: true,
+        male: true, female: true, nonbinary: true
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.labels.length = 1318,
+          res.body.orderIds.length = 1318,
+          res.body.vaccinationDates.length = 1318,
+          res.body.injections.length = 1318
+      })
+      .expect(200)
+  })
+
+  test('info return correct data', async () => {
+    await api.get(apiUrl + '/info')
+      .query({
+      })
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        res.body.usedVaccinesSum = 7000
+        res.body.expiredSum = 19932
+      })
+      .expect(200)
+  })*/
   afterAll(() => mongoose.connection.close())
 })

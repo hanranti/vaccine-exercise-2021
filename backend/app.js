@@ -21,4 +21,20 @@ const apiUrl = '/api'
 
 app.use(apiUrl, router)
 
+app.use((req, res) => res.status(404).send({ error: 'Nothing here!' }))
+
+app.use((error, req, res, next) => {
+
+  switch (error.name) {
+  case 'CastError':
+    res.status(400).send({ error: 'Url params not correct' })
+    break
+  case 'ValidationError':
+    res.status(400).json({ error: error.message })
+    break
+  }
+
+  next(error)
+})
+
 module.exports = app

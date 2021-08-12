@@ -15,6 +15,8 @@ describe('<App />', () => {
     expect(component.container).toHaveTextContent('Filters')
     expect(component.container).toHaveTextContent('All')
     expect(component.container).toHaveTextContent('OrdersAndInjections')
+    expect(component.container).toHaveTextContent('ExpiredOrders')
+    expect(component.container).toHaveTextContent('Info')
     expect(component.container).toHaveTextContent('Created by hanranti')
   })
 })

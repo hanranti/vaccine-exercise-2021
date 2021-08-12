@@ -83,7 +83,7 @@ const filterExpiredOrders = (filters, vaccinations, query) => {
   returnQuery.where = {
     ...returnQuery.where,
     id: { [Op.not]: vaccinations.map(vaccination => vaccination.sourceBottle) },
-    arrived: { [Op.lte]: new Date(new Date(filters.expirationDate) - filters.expirationTime) }
+    arrived: { [Op.lte]: new Date(new Date(filters.expirationDate) - filters.expirationTime).toISOString().split('T')[0] }
   }
   return returnQuery
 }
