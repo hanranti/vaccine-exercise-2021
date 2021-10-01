@@ -1,6 +1,6 @@
 const db = require('../../backend/models')
 const sequelize = db.sequelize
-/**const Sequelize = db.Sequelize*/
+
 
 const VaccinationsJSON = require('./data/vaccinations.json')
 const AntiquaJSON = require('./data/Antiqua.json')
