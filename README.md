@@ -1,6 +1,6 @@
 # vaccination-exercise
 
-# **__New!__**
+# **New!**
 
 This app is now running in [Heroku](https://vaccine-exercise.herokuapp.com/)
 
