@@ -4,7 +4,7 @@
   "description": "Vaccine-exercise",
   "scripts": {
     "heroku-prebuild": "sh ./scripts/initializeProduction.sh",
-    "start": "sh ./scripts/installAndBuild.sh",
+    "start": "sh installAndBuild.sh &% cd backend && npm start",
     "test:e2e": "npm start && cypress run",
     "test:e2e-workflow": "cypress run",
     "lint-fix": "eslint --fix .",
