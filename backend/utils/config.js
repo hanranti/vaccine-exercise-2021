@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const PORT = process.env.BACKEND_PORT || '2222'
+const PORT = process.env.BACKEND_PORT || process.env.PORT
 
 const db_host = process.env.DB_HOST
 const db_name = process.env.DB_NAME
