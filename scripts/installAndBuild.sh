@@ -7,5 +7,4 @@ cd ../backend
 npm install
 cd ..
 npm install
-echo 'build docker-compose'
-docker-compose build
+npm run build:ui
