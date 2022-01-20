@@ -1,5 +1,9 @@
 # vaccination-exercise
 
+# **__New!__**
+
+This app is now running in [Heroku](https://vaccine-exercise.herokuapp.com/)
+
 ## Installation
 
 To run this application on linux you need to install at least node version v16.6.1, npm version 7.20.3, docker version 20.10.8 and docker-compose version 1.29.2
